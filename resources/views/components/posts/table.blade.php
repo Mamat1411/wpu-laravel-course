@@ -17,9 +17,9 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <input type="text" id="simple-search"
+                            <input type="text" id="simple-search" name="search" value="{{ request('search') }}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Search" required="">
+                                placeholder="Search">
                         </div>
                     </form>
                 </div>
@@ -119,7 +119,9 @@
                         @else
                             <tr class="border-b dark:border-gray-700">
                                 <td colspan="6">
-                                    No Post Found
+                                    <h2 class="p-2 font-bold text-xl text-center">
+                                        No Post Found
+                                    </h2>
                                 </td>
                             </tr>
                         @endif

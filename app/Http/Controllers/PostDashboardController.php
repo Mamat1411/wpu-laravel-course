@@ -13,9 +13,14 @@ class PostDashboardController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->where('author_id', Auth::user()->id)->paginate(7)->withQueryString();
+        $posts = Post::latest()->where('author_id', Auth::user()->id);
+
+        if (request('search')) {
+            $posts->where('title', 'like', '%'. request('search') .'%');
+        }
+
         return view('dashboard', [
-            'posts' => $posts
+            'posts' => $posts->paginate(5)->withQueryString()
         ]);
     }
 
