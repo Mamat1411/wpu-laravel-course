@@ -65,9 +65,9 @@
                                     </div>
                                 </button>
                             @else
-                                <a href="{{ route('login') }}" class="text-white text-sm font-medium">Login</a>
+                                <a href="{{ route('login') }}" class="text-white text-sm font-medium rounded-md px-3 py-2 hover:bg-gray-700">Login</a>
                                 <span class="text-white text-sm font-medium"> | </span>
-                                <a href="{{ route('register') }}" class="text-white text-sm font-medium">Register</a>
+                                <a href="{{ route('register') }}" class="text-white text-sm font-medium rounded-md px-3 py-2 hover:bg-gray-700">Register</a>
                             @endif
                         </div>
 
