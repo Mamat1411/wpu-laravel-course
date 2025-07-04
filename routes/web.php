@@ -24,20 +24,36 @@ Route::get('/contact', function () {
 });
 
 Route::group([
+    'prefix' => '/posts',
     'as' => 'posts.'
 ], function () {
-    Route::get('/posts', [PostController::class, 'index'])->name('index');
-    Route::get('/posts/{post}', [PostController::class, 'show'])->name('show');
-    Route::get('/posts?author={user}', [PostController::class, 'index'])->name('authorIndex');
-    Route::get('/posts?category={category}', [PostController::class, 'index'])->name('categoryIndex');
+    Route::get('', [PostController::class, 'index'])->name('index');
+    Route::get('/{post}', [PostController::class, 'show'])->name('show');
+    Route::get('?author={user}', [PostController::class, 'index'])->name('authorIndex');
+    Route::get('?category={category}', [PostController::class, 'index'])->name('categoryIndex');
 });
 
-Route::get('/dashboard', [PostDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::group([
+    'middleware' => [
+        'auth',
+        'verified'
+    ]
+], function () {
+    Route::group([
+        'prefix' => '/dashboard',
+        'as' => 'dashboard.'
+    ], function () {
+        Route::get('', [PostDashboardController::class, 'index'])->name('index');
+    });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::group([
+        'prefix' => '/profile',
+        'as' => 'profile.'
+    ], function () {
+        Route::get('', [ProfileController::class, 'edit'])->name('edit');
+        Route::patch('', [ProfileController::class, 'update'])->name('update');
+        Route::delete('', [ProfileController::class, 'destroy'])->name('destroy');
+    });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
