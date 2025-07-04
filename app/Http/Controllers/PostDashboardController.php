@@ -19,7 +19,7 @@ class PostDashboardController extends Controller
             $posts->where('title', 'like', '%'. request('search') .'%');
         }
 
-        return view('dashboard', [
+        return view('dashboard.index', [
             'posts' => $posts->paginate(5)->withQueryString()
         ]);
     }
@@ -45,7 +45,9 @@ class PostDashboardController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('dashboard.show', [
+            'post' => $post
+        ]);
     }
 
     /**

@@ -91,10 +91,10 @@
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                             tabindex="-1">
                             <!-- Active: "bg-gray-100 outline-hidden", Not Active: "" -->
-                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700"
-                                role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
                             <a href="{{ route('dashboard.index') }}" class="block px-4 py-2 text-sm text-gray-700"
                                 role="menuitem" tabindex="-1" id="user-menu-item-1">Dashboard</a>
+                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700"
+                                role="menuitem" tabindex="-1" id="user-menu-item-0">Profile Settings</a>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="block px-4 py-2 text-sm text-gray-700 cursor-pointer"

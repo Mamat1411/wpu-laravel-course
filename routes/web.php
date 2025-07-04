@@ -44,6 +44,7 @@ Route::group([
         'as' => 'dashboard.'
     ], function () {
         Route::get('', [PostDashboardController::class, 'index'])->name('index');
+        Route::get('/{post}', [PostDashboardController::class, 'show'])->name('show');
     });
 
     Route::group([
