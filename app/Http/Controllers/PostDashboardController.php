@@ -20,6 +20,7 @@ class PostDashboardController extends Controller
         }
 
         return view('dashboard.index', [
+            'title' => 'Dashboard',
             'posts' => $posts->paginate(5)->withQueryString()
         ]);
     }
@@ -46,6 +47,7 @@ class PostDashboardController extends Controller
     public function show(Post $post)
     {
         return view('dashboard.show', [
+            'title' => $post->title,
             'post' => $post
         ]);
     }
