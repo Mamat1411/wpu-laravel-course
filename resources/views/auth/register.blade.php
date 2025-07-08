@@ -1,4 +1,6 @@
-<x-guest-layout>
+@props(['title'])
+
+<x-guest-layout :title="$title">
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
