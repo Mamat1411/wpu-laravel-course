@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,10 @@ class PostDashboardController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.create', [
+            'title' => "Add New Post",
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -57,7 +61,11 @@ class PostDashboardController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('dashboard.edit', [
+            'title' => $post->title,
+            'categories' => Category::all(),
+            'post' => $post
+        ]);
     }
 
     /**
