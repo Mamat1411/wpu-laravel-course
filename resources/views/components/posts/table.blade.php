@@ -54,7 +54,8 @@
                                 <tr class="border-b dark:border-gray-700">
                                     <th scope="row"
                                         class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $loop->iteration }}</th>
+                                        {{ $loop->iteration + $posts->firstItem() - 1 }}
+                                    </th>
                                     <td class="px-4 py-3">{{ $post->title }}</td>
                                     <td class="px-4 py-3 max-w-[12rem] truncate">{{ $post->category->name }}</td>
                                     <td class="px-4 py-3">{{ date('M j, Y H:i:s', strtotime($post->created_at)) }}</td>
