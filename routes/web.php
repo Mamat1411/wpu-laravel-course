@@ -48,6 +48,8 @@ Route::group([
         Route::post('', [PostDashboardController::class, 'store'])->name('store');
         Route::get('/{post}', [PostDashboardController::class, 'show'])->name('show');
         Route::get('/edit/{post}', [PostDashboardController::class, 'edit'])->name('edit');
+        Route::put('/update/{post}', [PostDashboardController::class, 'update'])->name('update');
+        Route::delete('/delete/{post}', [PostDashboardController::class, 'destroy'])->name('delete');
     });
 
     Route::group([
