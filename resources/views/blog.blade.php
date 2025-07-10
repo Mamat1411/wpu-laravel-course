@@ -46,7 +46,7 @@
                             <a href="{{ route('posts.authorIndex', ['user' => $post->author->username]) }}">
                                 <div class="flex items-center space-x-4">
                                     <img class="w-7 h-7 rounded-full"
-                                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                        src="{{ $post->author->avatar ? asset('storage/' . $post->author->avatar) : asset('img/default-avatar.png') }}"
                                         alt="{{ $post->author->name }}" />
                                     <span class="font-medium text-xs hover:underline dark:text-white">
                                         {{ $post->author->name }}
