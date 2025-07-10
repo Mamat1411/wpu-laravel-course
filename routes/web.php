@@ -51,15 +51,16 @@ Route::group([
         Route::patch('/update/{post}', [PostDashboardController::class, 'update'])->name('update');
         Route::delete('/delete/{post}', [PostDashboardController::class, 'destroy'])->name('delete');
     });
+});
 
-    Route::group([
-        'prefix' => '/profile',
-        'as' => 'profile.'
-    ], function () {
-        Route::get('', [ProfileController::class, 'edit'])->name('edit');
-        Route::patch('', [ProfileController::class, 'update'])->name('update');
-        Route::delete('', [ProfileController::class, 'destroy'])->name('destroy');
-    });
+Route::group([
+    'middleware' => 'auth',
+    'prefix' => '/profile',
+    'as' => 'profile.'
+], function () {
+    Route::get('', [ProfileController::class, 'edit'])->name('edit');
+    Route::patch('', [ProfileController::class, 'update'])->name('update');
+    Route::delete('', [ProfileController::class, 'destroy'])->name('destroy');
 });
 
 require __DIR__ . '/auth.php';
