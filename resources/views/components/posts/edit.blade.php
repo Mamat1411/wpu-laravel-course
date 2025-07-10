@@ -6,36 +6,44 @@
     </div>
     <!-- Body -->
     <form action="{{ route('dashboard.update', ['post' => $post->slug]) }}" method="POST">
-        @method('put')
+        @method('patch')
         @csrf
         <input type="hidden" name="author_id" value="{{ $post->author_id }}">
         <div class="grid gap-4 mb-4">
             <div>
                 <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
                 <input type="text" name="title" id="title"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Type post title" value="{{ old('title', $post->title) }}" required autofocus>
+                    class="border @error('title') bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500  dark:text-red-500 dark:placeholder-red-500 dark:border-red-500 @enderror border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Type post title" value="{{ old('title') ?? $post->title }}" autofocus>
+                @error('title')
+                    <p class="mt-2 text-xs text-red-600 dark:text-red-500">{{ $message }}</p>
+                @enderror
             </div>
             <div>
                 <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Category
                 </label>
                 <select id="category" name="category_id"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    required>
+                    class="border @error('category_id') bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500  dark:text-red-500 dark:placeholder-red-500 dark:border-red-500 @enderror border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
+                        <option value="{{ $category->id }}" @selected((old('category_id') ?? $post->category_id) == $category->id)>
                             {{ $category->name }}</option>
                     @endforeach
                 </select>
+                @error('category_id')
+                    <p class="mt-2 text-xs text-red-600 dark:text-red-500">{{ $message }}</p>
+                @enderror
             </div>
             <div>
                 <label for="body" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Post Content
                 </label>
                 <textarea id="body" rows="4" name="body"
-                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Write post content here">{{ $post->body }}</textarea>
+                    class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border @error('body') bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500  dark:text-red-500 dark:placeholder-red-500 dark:border-red-500 @enderror border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Write post content here">{{ old('body') ?? $post->body }}</textarea>
+                @error('body')
+                    <p class="mt-2 text-xs text-red-600 dark:text-red-500">{{ $message }}</p>
+                @enderror
             </div>
         </div>
         <button type="submit"

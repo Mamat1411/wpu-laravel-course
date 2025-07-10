@@ -32,10 +32,10 @@ class UpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', Rule::unique('posts', 'title')->ignore($this->route('post')->title)],
+            'title' => ['required', 'string', Rule::unique('posts', 'title')->ignore($this->route('post'))],
             'author_id' => ['required', 'numeric'],
             'category_id' => ['required', 'numeric'],
-            'slug' => ['required', 'string', Rule::unique('posts', 'slug')->ignore($this->route('post')->slug)],
+            'slug' => ['required', 'string', Rule::unique('posts', 'slug')->ignore($this->route('post'))],
             'body' => ['required']
         ];
     }
