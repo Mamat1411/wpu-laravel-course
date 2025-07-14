@@ -61,6 +61,7 @@ Route::group([
     Route::get('', [ProfileController::class, 'edit'])->name('edit');
     Route::patch('', [ProfileController::class, 'update'])->name('update');
     Route::delete('', [ProfileController::class, 'destroy'])->name('destroy');
+    Route::post('/upload', [ProfileController::class, 'upload'])->name('upload');
 });
 
 require __DIR__ . '/auth.php';

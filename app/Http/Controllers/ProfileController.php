@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProfileUpdateRequest;
+use Barryvdh\Debugbar\Facades\Debugbar;
 
 class ProfileController extends Controller
 {
@@ -34,17 +36,45 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
-        if ($request->hasFile('avatar')) {
+        // Laravel Upload
+        // if ($request->hasFile('avatar')) {
+        //     if (!empty($request->user()->avatar)) {
+        //         Storage::disk('public')->delete($request->user()->avatar);
+        //     }
+        //     $path = $request->file('avatar')->store('img', 'public');
+        //     $validatedData['avatar'] = $path;
+        // }
+
+
+        // Laravel + FilePond Upload
+        if ($request->avatar) {
             if (!empty($request->user()->avatar)) {
                 Storage::disk('public')->delete($request->user()->avatar);
             }
-            $path = $request->file('avatar')->store('img', 'public');
-            $validatedData['avatar'] = $path;
+
+            $newFileName = Str::after($request->avatar, 'tmp/');
+            $avatar = 'img/' . $request->username . '-' . $newFileName;
+            Storage::disk('public')->move($request->avatar, $avatar);
+
+            $validatedData['avatar'] = $avatar;
         }
 
         $request->user()->update($validatedData);
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    public function upload(Request $request) {
+        Debugbar::disable();
+
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $extension = $file->getClientOriginalExtension();
+            $filename = date("Ymd", time()).'.'.$extension;
+            $path = $request->file('avatar')->storeAs('tmp', $filename, 'public');
+        }
+
+        return $path;
     }
 
     /**

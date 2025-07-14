@@ -21,7 +21,6 @@ class ProfileUpdateRequest extends FormRequest
                 'required',
                 'string',
                 'min:4',
-                'alpha_num',
                 'max:50',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
@@ -32,8 +31,7 @@ class ProfileUpdateRequest extends FormRequest
                 'email',
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
-            ],
-            'avatar' => ['image', 'max:10240']
+            ]
         ];
     }
 }
