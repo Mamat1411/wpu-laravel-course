@@ -64,13 +64,16 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-    public function upload(Request $request) {
-        Debugbar::disable();
+    public function upload(Request $request)
+    {
+        if (!app()->environment('production')) {
+            Debugbar::disable();
+        }
 
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             $extension = $file->getClientOriginalExtension();
-            $filename = date("Ymd", time()).'.'.$extension;
+            $filename = date("Ymd", time()) . '.' . $extension;
             $path = $request->file('avatar')->storeAs('tmp', $filename, 'public');
         }
 
