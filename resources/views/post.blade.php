@@ -39,9 +39,9 @@
                         class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
                         {{ $post->title }}</h1>
                 </header>
-                <p class="text-justify">
-                    {{ $post->body }}
-                </p>
+                <div class="text-justify">
+                    {!! $post->body !!}
+                </div>
             </article>
         </div>
     </main>

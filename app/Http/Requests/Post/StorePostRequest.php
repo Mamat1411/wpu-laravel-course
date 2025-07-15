@@ -34,7 +34,7 @@ class StorePostRequest extends FormRequest
             'author_id' => ['required', 'numeric'],
             'category_id' => ['required', 'numeric'],
             'slug' => ['required', 'string', 'unique:posts'],
-            'body' => ['required']
+            'body' => ['required', 'min:50']
         ];
     }
 

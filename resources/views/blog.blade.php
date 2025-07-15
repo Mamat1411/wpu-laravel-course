@@ -40,7 +40,9 @@
                         <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a
                                 href="{{ route('posts.show', ['post' => $post->slug]) }}"
                                 class="hover:underline">{{ $post->title }}</a></h2>
-                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ Str::limit($post->body, 100) }}
+                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                            {{ Str::limit(strip_tags($post->body), 100) }}
+                            {{-- {!! Str::limit(strip_tags($post->body), 150) !!} --}}
                         </p>
                         <div class="flex justify-between items-center">
                             <a href="{{ route('posts.authorIndex', ['user' => $post->author->username]) }}">

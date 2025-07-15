@@ -61,9 +61,9 @@
                     {{ $post->title }}
                 </h1>
             </header>
-            <p class="text-justify">
-                {{ $post->body }}
-            </p>
+            <div class="text-justify">
+                {!! $post->body !!}
+            </div>
         </article>
 
         <!-- Delete modal -->

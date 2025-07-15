@@ -1,3 +1,6 @@
+@push('style')
+    @vite('resources/css/quill.css')
+@endpush
 <div class="w-full max-w-4xl mx-auto relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
     <!-- Header -->
     <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
@@ -11,10 +14,10 @@
     @endif --}}
 
     <!-- Body -->
-    <form action="{{ route('dashboard.store') }}" method="POST">
+    <form action="{{ route('dashboard.store') }}" method="POST" id="post-form">
         @csrf
         <input type="hidden" name="author_id" value="{{ auth()->user()->id }}">
-        <div class="grid gap-4 mb-4">
+        <div class="mb-4">
             <div>
                 <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
                 <input type="text" name="title" id="title"
@@ -24,7 +27,7 @@
                     <p class="mt-2 text-xs text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
             </div>
-            <div>
+            <div class="my-4">
                 <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Category
                 </label>
@@ -46,8 +49,11 @@
                     Post Content
                 </label>
                 <textarea id="body" rows="4" name="body"
-                    class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border @error('body') bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500  dark:text-red-500 dark:placeholder-red-500 dark:border-red-500 @enderror border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    class="hidden block p-2.5 w-full text-sm text-gray-900 rounded-lg border @error('body') bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500  dark:text-red-500 dark:placeholder-red-500 dark:border-red-500 @enderror border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Write post content here">{{ old('body') }}</textarea>
+                <div id="editor">
+                    {!! old('body') !!}
+                </div>
                 @error('body')
                     <p class="mt-2 text-xs text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
@@ -81,3 +87,7 @@
         </a>
     </form>
 </div>
+
+@push('script')
+    @vite('resources/js/quill.js')
+@endpush
