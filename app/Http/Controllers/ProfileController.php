@@ -73,7 +73,7 @@ class ProfileController extends Controller
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             $extension = $file->getClientOriginalExtension();
-            $filename = date("Ymd", time()) . '.' . $extension;
+            $filename = date("YmdHis", time()) . '.' . $extension;
             $path = $request->file('avatar')->storeAs('tmp', $filename, 'public');
         }
 
