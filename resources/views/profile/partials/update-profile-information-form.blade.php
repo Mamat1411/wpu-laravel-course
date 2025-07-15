@@ -1,6 +1,5 @@
 @push('style')
-    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
+    @vite('resources/css/filepond.css')
 @endpush
 
 <section>
@@ -95,36 +94,9 @@
 </section>
 
 @push('script')
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-
     <script>
-        // Register the plugin
-        FilePond.registerPlugin(FilePondPluginImagePreview);
-        FilePond.registerPlugin(FilePondPluginFileValidateType);
-        FilePond.registerPlugin(FilePondPluginFileValidateSize);
-        FilePond.registerPlugin(FilePondPluginImageTransform);
-        FilePond.registerPlugin(FilePondPluginImageResize);
-
-        // Get a reference to the file input element
-        const inputElement = document.querySelector('#avatar');
-        // Create a FilePond instance
-        const pond = FilePond.create(inputElement, {
-            acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
-            maxFileSize: '10MB',
-            imageResizeTargetWidth: '600',
-            imageResizeMode: 'contain',
-            imageResizeUpscale: false,
-            server: {
-                url: '{{ route('profile.upload') }}',
-                headers:{
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            }
-        });
+        window.uploadUrl = "{{ route('profile.upload') }}";
     </script>
+
+    @vite('resources/js/filepond.js')
 @endpush
